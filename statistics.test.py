@@ -2,6 +2,28 @@ import unittest
 import statistics
 import math
 
+
+class EmailAlert:
+    def __init__(self):
+        self.emailSent = False
+
+
+class LEDAlert:
+    def __init__(self):
+        self.ledGlows=False
+
+
+class StatsAlerter:
+    def __init__(self, maxThreshold, inputs):
+        self.MaxThreshold = maxThreshold
+        self.alerters=inputs
+
+    def checkAndAlert(self, numbers):
+        result = statistics.calculateStats(numbers)
+        if(result["max"] > self.MaxThreshold):
+            self.alerters[0].emailSent=True
+            self.alerters[1].ledGlows=True
+
 class StatsTest(unittest.TestCase):
   def test_report_min_max_avg(self):
     computedStats = statistics.calculateStats([1.5, 8.9, 3.2, 4.5])
@@ -18,14 +40,14 @@ class StatsTest(unittest.TestCase):
     # Design the assert here.
     # Use nan and isnan in https://docs.python.org/3/library/math.html
 
-#  def test_raise_alerts_when_max_above_threshold(self):
-#    emailAlert = EmailAlert()
-#    ledAlert = LEDAlert()
-#    maxThreshold = 10.5
-#    statsAlerter = StatsAlerter(maxThreshold, [emailAlert, ledAlert])
-#    statsAlerter.checkAndAlert([22.6, 12.5, 3.7])
-#    self.assertTrue(emailAlert.emailSent)
-#    self.assertTrue(ledAlert.ledGlows)
+  def test_raise_alerts_when_max_above_threshold(self):
+    emailAlert = EmailAlert()
+    ledAlert = LEDAlert()
+    maxThreshold = 10.5
+    statsAlerter = StatsAlerter(maxThreshold, [emailAlert, ledAlert])
+    statsAlerter.checkAndAlert([22.6, 12.5, 3.7])
+    self.assertTrue(emailAlert.emailSent)
+    self.assertTrue(ledAlert.ledGlows)
 
 if __name__ == "__main__":
   unittest.main()

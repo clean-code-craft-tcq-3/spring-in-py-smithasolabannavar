@@ -13,7 +13,6 @@ def calculateStats(numbers):
             if(result["max"] < numbers[i]):
                 result["max"] = numbers[i]
             if(result["min"] > numbers[i]):
-                print(numbers[i]+"------min")
                 result["min"] = numbers[i]
             sum += numbers[i]
         result["avg"] = sum/len(numbers)
