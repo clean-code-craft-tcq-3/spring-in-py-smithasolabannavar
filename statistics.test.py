@@ -1,28 +1,9 @@
 import unittest
 import statistics
 import math
-
-
-class EmailAlert:
-    def __init__(self):
-        self.emailSent = False
-
-
-class LEDAlert:
-    def __init__(self):
-        self.ledGlows=False
-
-
-class StatsAlerter:
-    def __init__(self, maxThreshold, inputs):
-        self.MaxThreshold = maxThreshold
-        self.alerters=inputs
-
-    def checkAndAlert(self, numbers):
-        result = statistics.calculateStats(numbers)
-        if(result["max"] > self.MaxThreshold):
-            self.alerters[0].emailSent=True
-            self.alerters[1].ledGlows=True
+from statistics import EmailAlert
+from statistics import LEDAlert
+from statistics import StatsAlerter
 
 class StatsTest(unittest.TestCase):
   def test_report_min_max_avg(self):
